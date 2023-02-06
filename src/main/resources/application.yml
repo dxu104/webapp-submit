@@ -1,7 +1,10 @@
 spring:
+
   datasource:
+      name: test
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/HW1db
+#      type: com.alibaba.druid.pool.DruidDataSource
       username: root
       password: root
 
@@ -10,10 +13,28 @@ spring:
 
 
 #mybatis-plus-configuration
-mybatis-plus:
-  global-config:
-    db-config:
-      table-prefix: "tbl_"
-      id-type: ASSIGN_ID
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#mybatis-plus:
+#  global-config:
+#    db-config:
+#      table-prefix: "tbl_"
+#      id-type: ASSIGN_ID
+#  mapper-locations: classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml,classpath*:mapper/*/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+  mybatis-plus:
+    mapper-locations: classpath*:/mapper/**/*.xml,classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml
+
+
+    mybatis:
+      table:
+        auto: update
+      model:
+      #扫描用于创建表的对象的包名
+      pack: com.csye6225HW1.POJO
+
+      database:
+        type: mysql
+
+
+
