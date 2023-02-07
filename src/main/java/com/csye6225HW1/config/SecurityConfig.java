@@ -17,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.stereotype.Component;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -24,6 +25,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @Slf4j
 public class SecurityConfig {
+
 
     @Autowired
     IUsersService usersService;
