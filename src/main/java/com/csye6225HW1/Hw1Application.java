@@ -24,6 +24,7 @@ public class Hw1Application {
         //SpringApplication.run(Hw1Application.class, args);
         StartUpHandler bean =run.getBean(StartUpHandler.class, args);
         bean.startHandler();
+
     }
 
 }
