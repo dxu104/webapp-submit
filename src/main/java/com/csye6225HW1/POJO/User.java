@@ -14,8 +14,7 @@ import java.util.List;
 
 //@Data = get/set/toString/hashCode/equals;
 @Data
-//@TableName("tbl_user")
-//userDetail obejct
+
 public class User implements UserDetails {
     //primary key
 //    @TableId(type = IdType.ASSIGN_ID)

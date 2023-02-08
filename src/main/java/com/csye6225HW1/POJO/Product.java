@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gitee.sunchenbin.mybatis.actable.annotation.*;
+import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,9 +15,7 @@ import java.util.Date;
 
 
 @Data
-@Table
-//@TableName("tbl_user")
-//userDetail obejct
+@Table(name = "tbl_product")
 public class Product  {
     //primary key
     @TableId(type = IdType.ASSIGN_ID)
@@ -43,56 +42,33 @@ public class Product  {
 
     @TableField
     @IsNotNull
-    private String quantity;
+    private Long quantity;
 
-//    @JsonProperty("date_added")
+   // @IsNativeDefValue(value = false)
+
     @TableField(fill = FieldFill.INSERT)
-    @IgnoreUpdate
-    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @ColumnType(MySqlTypeConstant.TIMESTAMP)
+//    @DefaultValue("NULL ON UPDATE CURRENT_TIMESTAMP")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String dateAdded;
 
-   // @JsonProperty("date_last_updated")
+
+
     @TableField(fill = FieldFill.INSERT_UPDATE)
-   // @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date dateLastUpdated;
+
+   // @JsonProperty("date_last_updated")
+//    @ColumnType(MySqlTypeConstant.TIMESTAMP)
+//    @IsNativeDefValue(value = false)
+   // @DefaultValue("CURRENT_TIMESTAMP")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String dateLastUpdated;
 
     //@JsonProperty("owne1r_user_id")
 
     @TableField
     private Long ownerUserId;}
 
-/**
- * 全部采用actable自有的注解
- */
-//@Table(comment = "actable简单配置")
-//public class Product {
-//
-//    @IsKey
-//    @IsAutoIncrement
-//    private Long id;
-//
-//    @Column
-//    @Index
-//    @IsNotNull
-//    private String name;
-//
-//    @Column
-//    private Date createTime;
-//
-//    @Column(defaultValue = "false")
-//    private Boolean isTrue;
-//
-//    @Column
-//    private Integer age;
-//
-//    @Column
-//    private BigDecimal price;
-//
-//    @Column
-//    @Unique
-//    private String identitycard;
-//
-//}
+
 
 
 

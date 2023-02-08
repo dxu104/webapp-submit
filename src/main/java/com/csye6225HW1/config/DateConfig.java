@@ -16,8 +16,13 @@ public class DateConfig implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
 
+        //for tbl_user
         this.setFieldValByName("accountCreated",new Date().toString(),metaObject);
         this.setFieldValByName("accountUpdated",new Date().toString(),metaObject);
+
+        ///for tbl_product
+        this.setFieldValByName("dateAdded",new Date().toString(),metaObject);
+        this.setFieldValByName("dateLastUpdated",new Date().toString(),metaObject);
     }
 
     /**
@@ -27,7 +32,10 @@ public class DateConfig implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
+        //for tbl_user
         this.setFieldValByName("accountUpdated",new Date().toString(),metaObject);
+        //for tbl_product
+        this.setFieldValByName("dateLastUpdated",new Date().toString(),metaObject);
     }
 }
 
