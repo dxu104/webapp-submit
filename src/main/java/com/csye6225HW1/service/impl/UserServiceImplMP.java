@@ -2,6 +2,7 @@ package com.csye6225HW1.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.csye6225HW1.POJO.Product;
 import com.csye6225HW1.POJO.User;
 import com.csye6225HW1.dao.UsersDao;
 import com.csye6225HW1.service.IUsersService;
@@ -24,8 +25,12 @@ import java.util.Optional;
 //usersDetailService provide user query service
 public class UserServiceImplMP extends ServiceImpl<UsersDao, User> implements IUsersService, UserDetailsService {
 
-    @Autowired
+
+
+    @Autowired(required = false)
     UsersDao usersDao;
+
+
 
     @Autowired
     BCryptPasswordEncoder PwdEncoder;

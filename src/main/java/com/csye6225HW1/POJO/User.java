@@ -2,6 +2,8 @@ package com.csye6225HW1.POJO;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
+import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,26 +16,32 @@ import java.util.List;
 
 //@Data = get/set/toString/hashCode/equals;
 @Data
-//@TableName("tbl_user")
-//userDetail obejct
+@Table(name = "tbl_user")
 public class User implements UserDetails {
     //primary key
-//    @TableId(type = IdType.ASSIGN_ID)
+    @TableField
+   @TableId(type = IdType.ASSIGN_ID)
     private Long id;
+
+    @TableField
+    //在Json中我们用first_name代替firstName
     @JsonProperty("first_name")
     private String firstName;
+
+    @TableField
     @JsonProperty("last_name")
     private String lastName;
 
+    @TableField
     private String password;
+
+    @TableField
     private String username;
 
-    @JsonProperty("account_created")
     @TableField(fill = FieldFill.INSERT)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String accountCreated;
 
-    @JsonProperty("account_updated")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String accountUpdated;

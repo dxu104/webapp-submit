@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/users")
 public class UserController {
 
-   @Autowired
+    @Autowired
     IUsersService usersService;
 
     @GetMapping("/{id}")
