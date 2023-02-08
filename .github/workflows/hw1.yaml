@@ -19,7 +19,7 @@ on:
       - HW2
 
 jobs:
-  hw1-CI:
+  hw2-CI:
 
     runs-on: ubuntu-latest
 
