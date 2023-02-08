@@ -19,6 +19,7 @@ import java.util.Date;
 public class Product  {
     //primary key
     @TableId(type = IdType.ASSIGN_ID)
+    @TableField
     @IsNotNull
     private Long id;
 
@@ -44,26 +45,17 @@ public class Product  {
     @IsNotNull
     private Long quantity;
 
-   // @IsNativeDefValue(value = false)
 
     @TableField(fill = FieldFill.INSERT)
-//    @ColumnType(MySqlTypeConstant.TIMESTAMP)
-//    @DefaultValue("NULL ON UPDATE CURRENT_TIMESTAMP")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String dateAdded;
 
 
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-
-   // @JsonProperty("date_last_updated")
-//    @ColumnType(MySqlTypeConstant.TIMESTAMP)
-//    @IsNativeDefValue(value = false)
-   // @DefaultValue("CURRENT_TIMESTAMP")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String dateLastUpdated;
 
-    //@JsonProperty("owne1r_user_id")
 
     @TableField
     private Long ownerUserId;}

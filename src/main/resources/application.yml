@@ -1,8 +1,13 @@
+server:
+  port: ${SERVER_PORT:8080}
+
 spring:
   datasource:
       name: test
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/HW1db
+      url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/HW1db?createDatabaseIfNotExist=true
+
+#      url: jdbc:mysql://localhost:3306/HW1db?createDatabaseIfNotExist=true
 #      type: com.alibaba.druid.pool.DruidDataSource
       username: root
       password: root
