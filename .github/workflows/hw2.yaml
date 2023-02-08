@@ -6,17 +6,17 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: HW-1 CI
+name: HW-2 CI
 
 on:
   push:
     branches:
       - main
-      - B1
+      - HW2
   pull_request:
     branches:
       - main
-      - B1
+      - HW2
 
 jobs:
   hw2-CI:
