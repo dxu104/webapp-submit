@@ -12,11 +12,11 @@ on:
   push:
     branches:
       - main
-      - B1
+      - HW2
   pull_request:
     branches:
       - main
-      - B1
+      - HW2
 
 jobs:
   hw1-CI:
