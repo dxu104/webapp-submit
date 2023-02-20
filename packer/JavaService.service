@@ -1,0 +1,13 @@
+[Unit]
+Description=My Java Program
+After=network.target mysql.service java.service
+
+[Service]
+Type=simple
+User=ec2-user
+ExecStart=/usr/bin/java -jar /opt/HomeWork1-0.0.1-SNAPSHOT.jar
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

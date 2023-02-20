@@ -45,7 +45,7 @@ public class SecurityConfig {
             @Override
             //authentication param carry the information(username and password) passed from postman basic auth.
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-                String username = authentication.getName();
+                        String username = authentication.getName();
                 //getCredentials provide password, after authentication success,destroy it.
                 String password = authentication.getCredentials().toString();
 
