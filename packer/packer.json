@@ -1,6 +1,10 @@
+
+
 {
+  
 
   "variables": {
+
     "aws_region": "us-west-2",
     "source_ami": "ami-0f1a5f5ada0e7da53",
     "instance_type": "t2.micro"
@@ -98,8 +102,8 @@
   ],
   
 
-  "sensitive-variables": ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"],
-  "vars_file": "variables.json"
+  "sensitive-variables": ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+
 
 }
   
