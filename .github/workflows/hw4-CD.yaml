@@ -17,6 +17,14 @@ jobs:
   build-image:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID_PACKER_DEV: ${{ secrets.AWS_ACCESS_KEY_ID_PACKER_DEV }}
+      AWS_SECRET_ACCESS_KEY_PACKER_DEV: ${{ secrets.AWS_SECRET_ACCESS_KEY_PACKER_DEV }}
+      AWS_ACCESS_KEY_ID_PACKER_DEMO: ${{ secrets.AWS_ACCESS_KEY_ID_PACKER_DEMO }}
+      AWS_SECRET_ACCESS_KEY_PACKER_DEMO: ${{ secrets.AWS_SECRET_ACCESS_KEY_PACKER_DEMO }}
+      DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
+      DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -29,13 +37,13 @@ jobs:
         run:
           mvn package
 
-      - name: Setup go
-        uses: actions/setup-go@v2
+      - name: Setup `packer`
+        uses: hashicorp/setup-packer@main
+        id: setup
         with:
-          go-version: '1.16'
-
-      - name: Install packer
-        run: go install github.com/hashicorp/packer@latest
+          version: "1.8.3" # or `latest`
+      - name: check environment variables
+        run: echo $DEV_ACCOUNT_ID
 
       - name: Run packer build
-        run: packer build packer/pack.json
+        run: cd packer && packer build -var-file=variables.json packer.json
