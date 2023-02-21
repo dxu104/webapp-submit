@@ -1,8 +1,0 @@
-{
-  "variables": {
-    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
-    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
-    "aws_region": "us-west-2",
-    "source_ami": "ami-0f1a5f5ada0e7da53",
-    "instance_type": "t2.micro"
-  }}

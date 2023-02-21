@@ -50,6 +50,6 @@ jobs:
 
       - name: Run packer build
 
-        run: cd packer && packer build packer.json
+        run: cd packer && packer build packer.json -var=access_key
 
 
