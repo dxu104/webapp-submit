@@ -7,11 +7,11 @@ public class ErrorMessage {
     // Product related
     public static final String PRODUCT_NOT_EXIST = "Product not exist";
 
-    public static final String PRODUCT_QUANTITY_ERROR = "Product quantity should greater than 0";
+    public static final String PRODUCT_QUANTITY_ERROR = "Product quantity should larger than 0";
 
-    public static final String REPEAT_SKU = "You can't have the create/update product with same sku";
+    public static final String REPEAT_SKU = "Not allowed to create/update product with same sku";
 
-    public static final String NO_CONTENT ="Please enter all the necessary fields";
+    public static final String NO_CONTENT ="Please enter all product's information";
 
 
 }

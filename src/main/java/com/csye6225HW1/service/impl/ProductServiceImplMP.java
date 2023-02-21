@@ -90,12 +90,12 @@ public class ProductServiceImplMP extends ServiceImpl<ProductsDao, Product> impl
             if(!product.getQuantity().getClass().equals(Long.class)) {
                 throw new RuntimeException("Quantity must be Integer");
             }
-        if( product.getQuantity()< 0){
+            if( product.getQuantity()< 0){
                 throw new CreateOrUpdateProductException(ErrorMessage.PRODUCT_QUANTITY_ERROR);
             }
-
             ProductToBePatched.setQuantity(product.getQuantity());
         }
+
         //不能要这些因为ID和时间已经有了
         //ProductIsValid(ProductToBePatched);
         productDao.updateById(ProductToBePatched);

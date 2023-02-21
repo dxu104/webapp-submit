@@ -31,7 +31,7 @@ public class ProductController {
     public String updateProduct(@PathVariable Long productId,@RequestBody Product product){
         productService.updateProduct(product,productId);
         return "Your product is already updated";
-    }
+       }
 
     @PatchMapping("/{productId}")
     //在Spring Framework中，可以使用@RequestBody注解来将请求正文中的JSON数据映射为Java对象。例如

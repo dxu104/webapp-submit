@@ -6,11 +6,11 @@ spring:
       name: test
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/HW1db?createDatabaseIfNotExist=true
+      username: ${DB_USER:root}
+      password: ${DB_PASSWORD:Amazon#2023}
 
-#      url: jdbc:mysql://localhost:3306/HW1db?createDatabaseIfNotExist=true
-#      type: com.alibaba.druid.pool.DruidDataSource
-      username: root
-      password: root
+
+
 mybatis-plus:
   global-config:
     db-config:

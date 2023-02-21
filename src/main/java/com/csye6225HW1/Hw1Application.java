@@ -12,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 
-
 @MapperScan({"com.csye6225HW1.dao","com.gitee.sunchenbin.mybatis.actable.dao.*"})
 
 //当我们定义的@componentScan会覆盖@SpringBootApplication扫描的范围，也就是com.csye6225HW1

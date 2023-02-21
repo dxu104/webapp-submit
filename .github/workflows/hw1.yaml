@@ -8,15 +8,15 @@
 
 name: HW-1 CI
 
-on:
-  push:
-    branches:
-      - main
-      - B1
-  pull_request:
-    branches:
-      - main
-      - B1
+#on:
+#  push:
+#    branches:
+#      - main
+#      - B1
+#  pull_request:
+#    branches:
+#      - main
+#      - B1
 
 jobs:
   hw2-CI:

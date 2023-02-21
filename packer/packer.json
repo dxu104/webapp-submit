@@ -1,0 +1,92 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "source_ami":"ami-0f1a5f5ada0e7da53",
+      
+      "region": "{{user `aws_region`}}",
+     
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user",
+      "ami_name": "webapp-{{timestamp}}",
+      "ami_users": ["814613584038", "187570859166"],
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/xvda",
+          "volume_size": 50,
+          "volume_type": "gp2",
+          "delete_on_termination": true
+        }
+      ]
+      ,
+      
+      "tags": {
+        "Name": "My_Web_IMA-{{timestamp}}"
+      }
+    
+    }
+  ],
+
+    
+  
+  "provisioners": [
+
+    {
+      "type": "file",
+      "source": "HomeWork1-0.0.1-SNAPSHOT.jar",
+      "destination": "/tmp/"
+    }  
+    ,
+    {
+      "type": "shell",
+      "inline": [
+        "sudo cp /tmp/HomeWork1-0.0.1-SNAPSHOT.jar /opt/HomeWork1-0.0.1-SNAPSHOT.jar"
+      ]
+     
+    }  
+    ,
+   
+    
+    {
+      "type": "shell",
+      "script": "setup.sh"
+    }
+    ,
+    {
+      "type": "shell",
+      "script": "mariadbSecureInstallation.sh"
+    }
+    ,
+    {
+      "type": "shell",
+      "script": "javaWebApp.sh"
+    },
+    {
+      "type": "file",
+      "source": "JavaService.service",
+      "destination": "/tmp/"
+      
+    } ,
+    {
+      "type": "shell",
+      "inline": [
+        "sudo cp /tmp/JavaService.service /etc/systemd/system/JavaService.service"
+      ]
+     
+    }  
+    ,
+    {
+      "type": "shell",
+      "script": "JavaSystemD.sh"
+      
+      
+    }
+    
+  ],
+  
+  "sensitive-variables": ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+  
+}
+  
