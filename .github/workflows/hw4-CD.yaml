@@ -25,8 +25,8 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PACKER_DEMO }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PACKER_DEMO }}
 
+      AWS_REGION: 'us-west-2'
 
-     
       DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
       DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
     steps:
@@ -46,13 +46,14 @@ jobs:
         id: setup
         with:
 
-          version: "1.8.3" # or `latest`
+          version: "1.8.3" # or`latest`
       - name: check environment variables
-
         run: echo $DEMO_ACCOUNT_ID
 
       - name: Run packer build
         run: cd packer && packer build packer.json
+
+
 
 
 
