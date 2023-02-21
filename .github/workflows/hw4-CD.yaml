@@ -20,8 +20,6 @@ jobs:
 
     env:
 
-#      AWS_ACCESS_KEY_ID_PACKER_DEV: ${{ secrets.AWS_ACCESS_KEY_ID_PACKER_DEV }}
-#      AWS_SECRET_ACCESS_KEY_PACKER_DEV: ${{ secrets.AWS_SECRET_ACCESS_KEY_PACKER_DEV }}
 
       access_key: ${{secrets.AWS_ACCESS_KEY_ID_DEV}}
       secret_key: ${{secrets.AWS_SECRET_ACCESS_KEY_DEV}}
