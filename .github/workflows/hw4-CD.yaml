@@ -19,8 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_ACCESS_KEY_ID_PACKER_DEV: ${{ secrets.AWS_ACCESS_KEY_ID_PACKER_DEV }}
-      AWS_SECRET_ACCESS_KEY_PACKER_DEV: ${{ secrets.AWS_SECRET_ACCESS_KEY_PACKER_DEV }}
+
       AWS_ACCESS_KEY_ID_PACKER_DEMO: ${{ secrets.AWS_ACCESS_KEY_ID_PACKER_DEMO }}
       AWS_SECRET_ACCESS_KEY_PACKER_DEMO: ${{ secrets.AWS_SECRET_ACCESS_KEY_PACKER_DEMO }}
       DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
@@ -46,5 +45,6 @@ jobs:
         run: echo $DEV_ACCOUNT_ID
 
       - name: Run packer build
+
         run: cd packer && packer build -var-file=variable.json packer.json
 
