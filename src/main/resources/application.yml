@@ -1,13 +1,23 @@
+
+
 server:
   port: ${SERVER_PORT:8080}
+#aws:
+#  accessKeyId: ${AWS_ACCESS_KEY_ID:root}
+#  secretKey: ${AWS_SECRET_ACCESS_KEY:root}
 
 spring:
   datasource:
       name: test
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/HW1db?createDatabaseIfNotExist=true
-      username: ${DB_USER:root}
-      password: ${DB_PASSWORD:Amazon#2023}
+      #url: jdbc:mysql://${DB_HOST:localhost}/${DB_NAME:csye6225}/HW1db?createDatabaseIfNotExist=true
+
+      url: jdbc:mysql://${DB_HOST}/${DB_NAME:csye6225}?createDatabaseIfNotExist=true
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+#      username: root
+#      password: root
+
 
 
 
@@ -27,7 +37,7 @@ mybatis:
 
       #扫描用于创建表的对象的包名
 
-
+    #Amazon#2023
 
 
 
