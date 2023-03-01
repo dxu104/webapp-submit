@@ -44,7 +44,7 @@ build  {
 
   provisioner "file" {
 
-    source   = "HomeWork1-0.0.1-SNAPSHOT.jar"
+    source   = "../target/HomeWork1-0.0.1-SNAPSHOT.jar"
     destination = "/tmp/"
   }
 
