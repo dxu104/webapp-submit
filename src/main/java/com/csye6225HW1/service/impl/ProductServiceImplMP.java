@@ -3,7 +3,7 @@ package com.csye6225HW1.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.csye6225HW1.Exceptions.ProductException.CreateOrUpdateProductException;
 import com.csye6225HW1.Exceptions.ProductException.NoContentException;
-import com.csye6225HW1.Exceptions.ProductException.ProductNotExistException;
+import com.csye6225HW1.Exceptions.ProductException.ImageNotExistException;
 import com.csye6225HW1.Exceptions.UserException.ChangeOthersInfoException;
 import com.csye6225HW1.POJO.Product;
 import com.csye6225HW1.dao.ProductsDao;
@@ -53,7 +53,7 @@ public class ProductServiceImplMP extends ServiceImpl<ProductsDao, Product> impl
         if(product.isPresent()){
             return product.get();
         }else{
-            throw new ProductNotExistException(ErrorMessage.PRODUCT_NOT_EXIST);  //400
+            throw new ImageNotExistException(ErrorMessage.PRODUCT_NOT_EXIST);  //400
         }
 
     }

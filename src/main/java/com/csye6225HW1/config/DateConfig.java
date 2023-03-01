@@ -1,7 +1,10 @@
 package com.csye6225HW1.config;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -23,6 +26,11 @@ public class DateConfig implements MetaObjectHandler {
         ///for tbl_product
         this.setFieldValByName("dateAdded",new Date().toString(),metaObject);
         this.setFieldValByName("dateLastUpdated",new Date().toString(),metaObject);
+
+
+        ///for tbl_image
+        this.setFieldValByName("dateCreated",new Date().toString(),metaObject);
+
     }
 
     /**

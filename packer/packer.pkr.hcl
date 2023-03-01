@@ -60,15 +60,15 @@ build  {
     script  = "setup.sh"
   }
 
-  provisioner "shell" {
-
-    script  = "mariadbSecureInstallation.sh"
-  }
-
-  provisioner "shell" {
-
-    script  = "javaWebApp.sh"
-  }
+#  provisioner "shell" {
+#
+#    script  = "mariadbSecureInstallation.sh"
+#  }
+#
+#  provisioner "shell" {
+#
+#    script  = "javaWebApp.sh"
+#  }
 
   provisioner "file" {
 
