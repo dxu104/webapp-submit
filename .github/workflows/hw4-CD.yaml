@@ -45,6 +45,12 @@ jobs:
         with:
 
           version: "1.8.3"  ##or `latest`
+      - name: Validate Packer Template
+        uses: hashicorp/packer-github-actions@v2
+        with:
+          command: "validate"
+          target: "packer.pkr.hcl"
+
       - name: check environment variables
         run: echo $DEMO_ACCOUNT_ID
 
