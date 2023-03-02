@@ -51,7 +51,7 @@ jobs:
 
         with:
           command: "validate"
-          target: "packer/packer.pkr.hcl"
+          target: "./packer/packer.pkr.hcl"
 
       - name: check environment variables
         run: echo $DEMO_ACCOUNT_ID
