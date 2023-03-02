@@ -13,6 +13,7 @@ on:
       - main
     types: [closed]
 
+
 jobs:
   build-image:
     if: github.event.pull_request.merged == true
@@ -45,14 +46,14 @@ jobs:
         with:
 
           version: "1.8.3"  ##or `latest`
-      - name: Validate Packer Template
-
+      # validate templates
+      - name: Validate Template
         uses: hashicorp/packer-github-actions@master
-
         with:
-          command: "validate"
+          command: validate
+          arguments: -syntax-only
+          target: ./packer/packer.pkr.hcl
 
-          target: "./packer/packer.pkr.hcl"
 
 
       - name: check environment variables
