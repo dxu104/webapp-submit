@@ -46,7 +46,9 @@ jobs:
 
           version: "1.8.3"  ##or `latest`
       - name: Validate Packer Template
-        uses: hashicorp/packer-github-actions@v2
+
+        uses: hashicorp/packer-github-actions@master
+
         with:
           command: "validate"
           target: "packer.pkr.hcl"
