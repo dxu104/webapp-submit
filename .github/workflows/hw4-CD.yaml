@@ -50,9 +50,11 @@ jobs:
       - name: Validate Template
         uses: hashicorp/packer-github-actions@master
         with:
+
           command: validate
           arguments: -syntax-only
           target: ./packer/packer.pkr.hcl
+
 
 
 
