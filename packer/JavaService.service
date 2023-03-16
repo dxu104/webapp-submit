@@ -1,7 +1,11 @@
 [Unit]
 Description=My Java Program
-After=network.target mysql.service java.service
-
+After=network.target  java.service
+#After=network.target mysql.service java.service
+#if I use AWS RDS, I should delete mysql service.
+#The mysql.service unit is used for a locally installed
+ #MySQL database server and is not needed when connecting
+ #to a remote MySQL database like RDS.
 [Service]
 Type=simple
 User=ec2-user
