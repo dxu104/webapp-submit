@@ -25,9 +25,11 @@ source "amazon-ebs" "Amazon_IMA" {
   region        = var.aws_region
   ssh_username  = "ec2-user"
   source_ami    = var.source_ami
-
+//ssh into the instance, using the df -h, you will see the /dev/xvda1
   launch_block_device_mappings {
+    // launch_block_device_mappings 挂载点
     device_name           = "/dev/xvda"
+
     volume_size           = 50
     volume_type           = "gp2"
     delete_on_termination = true
@@ -51,7 +53,24 @@ build  {
   provisioner "shell" {
 
     inline  = [
+      //drwx-xr-x; root root;
+      "sudo mkdir -p /var/log/myapp",
+
       "sudo cp /tmp/HomeWork1-0.0.1-SNAPSHOT.jar /opt/HomeWork1-0.0.1-SNAPSHOT.jar"
+    ]
+  }
+ # "sudo chmod -v 755 /var/log/myapp/",
+
+  provisioner "file" {
+    source      = "./cloudWatchAgentConfig.json"
+    destination = "/tmp/"
+  }
+
+
+  provisioner "shell" {
+
+    inline  = [
+      "sudo cp /tmp/cloudWatchAgentConfig.json /opt/cloudWatchAgentConfig.json"
     ]
   }
 
@@ -83,10 +102,14 @@ build  {
     ]
   }
 
+
+
   provisioner "shell" {
 
     script  = "JavaSystemD.sh"
   }
+
+
 
 
 

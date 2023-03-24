@@ -1,22 +1,29 @@
 
-
 server:
   port: ${SERVER_PORT:8080}
 #aws:
 #  accessKeyId: ${AWS_ACCESS_KEY_ID:root}
 #  secretKey: ${AWS_SECRET_ACCESS_KEY:root}
 
-spring:
-  datasource:
-      name: test
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      #url: jdbc:mysql://${DB_HOST:localhost}/${DB_NAME:csye6225}/HW1db?createDatabaseIfNotExist=true
 
-      url: jdbc:mysql://${DB_HOST}/${DB_NAME:csye6225}?createDatabaseIfNotExist=true
-      username: ${DB_USERNAME}
-      password: ${DB_PASSWORD}
-#      username: root
-#      password: root
+
+spring:
+  devtools:
+    remote:
+      debug: enabled=true
+  datasource:
+    name: test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://${DB_H
+    url: jdbc:mysql://${DB_HOST:localhost}/${DB_NAME:csye6225}?createDatabaseIfNotExist=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+#    username: root
+#    password: root
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 
 
@@ -35,13 +42,32 @@ mybatis:
   database:
     type: mysql
 
-      #扫描用于创建表的对象的包名
+logging:
+  level:
+    com.csye6226HW1.*: DEBUG
+  file:
+#    name: csye6225.log
 
-    #Amazon#2023
+    name: /var/log/myapp/csye6225.log
 
 
 
 
+publish:
+  metrics: true
+metrics:
+  server:
+    hostname: localhost
+    port: 8125
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 #mybatis-plus-configuration
 #mybatis-plus:

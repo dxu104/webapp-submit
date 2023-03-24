@@ -21,6 +21,7 @@ import com.csye6225HW1.dao.ProductsDao;
 import com.csye6225HW1.service.IImagesService;
 import com.csye6225HW1.util.ErrorMessage;
 import com.csye6225HW1.util.UserPassingLoginAuth;
+import com.timgroup.statsd.StatsDClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 @Slf4j
 public class ImageServiceImplMP extends ServiceImpl<ImagesDao, Image> implements IImagesService {
 
+    public static String s3BucketName = System.getenv("BUCKET_NAME");
 
     @Autowired
     ImagesDao imagesDao;
@@ -53,7 +55,9 @@ public class ImageServiceImplMP extends ServiceImpl<ImagesDao, Image> implements
     @Autowired
     private AmazonS3 amazons3;
 
-    public static String s3BucketName = System.getenv("BUCKET_NAME");
+
+
+
 
 
     private void checkImageAuth(Image imageToBeAuth){
