@@ -1,6 +1,7 @@
 [Unit]
 Description=My Java Program
-After=network.target  java.service
+
+#After=network.target  java.service
 #After=network.target mysql.service java.service
 #if I use AWS RDS, I should delete mysql service.
 #The mysql.service unit is used for a locally installed
@@ -11,7 +12,6 @@ Type=simple
 User=ec2-user
 ExecStart=/bin/bash -c 'source /etc/bashrc && /usr/bin/java -jar /opt/HomeWork1-0.0.1-SNAPSHOT.jar'
 Restart=always
-RestartSec=10
-
+RestartSec=60
 [Install]
 WantedBy=multi-user.target

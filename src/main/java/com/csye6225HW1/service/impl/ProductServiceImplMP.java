@@ -32,6 +32,8 @@ public class ProductServiceImplMP extends ServiceImpl<ProductsDao, Product> impl
     ProductsDao productDao;
 
 
+
+
     public Product createProduct(Product product) {
         ProductIsValid(product);
         List<Product> ProductsIsExist =
