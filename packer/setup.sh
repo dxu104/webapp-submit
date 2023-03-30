@@ -39,6 +39,9 @@ sudo systemctl enable amazon-cloudwatch-agent
 sudo systemctl start amazon-cloudwatch-agent
 
 
+
+sudo yum install -y mariadb
+
 #even teacher said we should close, but yao said 开着吧，后面测试RDS 的数据库可能用的到
 #sudo systemctl start mariadb
 #
