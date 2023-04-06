@@ -36,8 +36,10 @@ public class ImageController {
     public Image getImage(HttpServletRequest request, @PathVariable Long productId, @PathVariable String imageId) throws IOException {
         log.info("Info message: get image");
         metricsClient.incrementCounter("endpoint.imageId.http.get");
+        long startTime = System.currentTimeMillis();
         Image image = imageService.getImage(productId, imageId);
-        Long elapsedTime = (Long) request.getAttribute("elapsedTime");
+        long elapsedTime = System.currentTimeMillis() - startTime;
+
         metricsClient.recordExecutionTime("endpoint.imageId.http.get.timer", elapsedTime);
         log.info("Info message: get image; ElapsedTime = " + elapsedTime);
         return image;
@@ -51,7 +53,7 @@ public class ImageController {
         long startTime = System.currentTimeMillis();
         List<Image> image= imageService.getImageList(productId);
         long elapsedTime = System.currentTimeMillis() - startTime;
-        metricsClient.recordExecutionTime("endpoint.imageId.http.get.timer", elapsedTime);
+        metricsClient.recordExecutionTime("endpoint.imageList.http.get.timer", elapsedTime);
         log.info("Info message:get image List；ElapsedTime = " +elapsedTime);
 
         return image;
@@ -67,7 +69,7 @@ public class ImageController {
         long startTime = System.currentTimeMillis();
         Image imageResponse = imageService.uploadImage(productId, file);
         long elapsedTime = System.currentTimeMillis() - startTime;
-        metricsClient.recordExecutionTime("endpoint.imageId.http.get.timer", elapsedTime);
+        metricsClient.recordExecutionTime("endpoint.imageId.http.post.timer", elapsedTime);
 
         log.info("Info message:post image；ElapsedTime = " +elapsedTime);
         return ResponseEntity.status(200).body(imageResponse);
@@ -90,7 +92,7 @@ public class ImageController {
 
         imageService.deleteImage(productId, imageId);
         long elapsedTime = System.currentTimeMillis() - startTime;
-        metricsClient.recordExecutionTime("endpoint.imageId.http.get.timer", elapsedTime);
+        metricsClient.recordExecutionTime("endpoint.imageId.http.delete.timer", elapsedTime);
 
         log.info("Info message:delete image；ElapsedTime = " +elapsedTime);
         return "Your image was successfully deleted ";

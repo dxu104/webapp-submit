@@ -37,7 +37,7 @@ public class UserController {
         UserDemo userdemo = usersService.getUser(id);
 
         long elapsedTime = System.currentTimeMillis() - startTime;
-        metricsClient.recordExecutionTime("endpoint.imageId.http.get.timer", elapsedTime);
+        metricsClient.recordExecutionTime("endpoint.user.http.get.timer", elapsedTime);
         log.info("Info message:get user；ElapsedTime = " +elapsedTime);
         return userdemo;
 
@@ -52,7 +52,7 @@ public UserDemo UserSignUp(@RequestBody User user) {
     UserDemo userDemo =   usersService.initialUser(user);
 
     long elapsedTime = System.currentTimeMillis() - startTime;
-    metricsClient.recordExecutionTime("endpoint.imageId.http.get.timer", elapsedTime);
+    metricsClient.recordExecutionTime("endpoint.user.http.post.timer", elapsedTime);
     log.info("Info message:post user；ElapsedTime = " +elapsedTime);
     return userDemo;
 }
@@ -82,7 +82,7 @@ public UserDemo UserSignUp(@RequestBody User user) {
         usersService.update(id, user);
 
         long elapsedTime = System.currentTimeMillis() - startTime;
-        metricsClient.recordExecutionTime("endpoint.imageId.http.get.timer", elapsedTime);
+        metricsClient.recordExecutionTime("endpoint.user.http.update.timer", elapsedTime);
         log.info("Info message:put user；ElapsedTime = " +elapsedTime);
 
     }
