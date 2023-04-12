@@ -98,7 +98,7 @@
             AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
           run: |
             aws autoscaling start-instance-refresh \
-            --auto-scaling-group-name my-auto-scaling-group   
+            --auto-scaling-group-name web_asg   
   
   
   
