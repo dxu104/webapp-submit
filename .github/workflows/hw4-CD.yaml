@@ -85,8 +85,7 @@
             AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO_A9}}
             AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
           run: |
-            echo "LAUNCH_TEMPLATE_NAME=$(terraform output -raw launch_template_name)" >> $GITHUB_ENV
-   
+            echo "LAUNCH_TEMPLATE_NAME=$(terraform output -raw launch_template_name | tr -d '\n')" >> $GITHUB_ENV
 
 
         - name: Create Launch Template Version
