@@ -79,10 +79,10 @@
               --filters "Name=name,Values=My_IMA-*" \
               --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
               --output text)
-            echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
             
-        - name: Print latest AMI ID
-          run: echo "LATEST_AMI_ID=$LATEST_AMI_ID"
+            echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
+            echo "LATEST_AMI_ID=$latest_ami_id"
+            
 
 
         - name: Create Launch Template
