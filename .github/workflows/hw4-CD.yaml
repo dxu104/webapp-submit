@@ -19,14 +19,14 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
-    env:
-
 #before those secrets.AWS_ACCESS_KEY_ID_DEMO and key is from packer user, only for creating AMI.
 # right now since A9,we need to create Launch Template and autoScaling refresh
 #      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO}}
 #      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
 #      region: ${{secrets.region}}
       #since A9, I will increase the permission of role form those key ID to Demo IAM user
+    env:    
+      AWS_EC2_METADATA_DISABLED: true
       AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO_A9}}
       AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
 
