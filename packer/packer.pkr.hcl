@@ -13,7 +13,7 @@ variable "source_ami" {
 
 variable "ami_users" {
   type = list(string)
-  default = ["814613584038", "187570859166","160774145825"]
+  default = ["814613584038","160774145825", "187570859166"]
 }
 
 source "amazon-ebs" "Amazon_IMA" {

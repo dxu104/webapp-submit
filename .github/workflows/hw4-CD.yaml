@@ -21,10 +21,14 @@ jobs:
 
     env:
 
-
-      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO}}
-      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
+#before those secrets.AWS_ACCESS_KEY_ID_DEMO and key is from packer user, only for creating AMI.
+# right now since A9,we need to create Launch Template and autoScaling refresh
+#      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO}}
+#      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
 #      region: ${{secrets.region}}
+      #since A9, I will increase the permission of role form those key ID to Demo IAM user
+      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO_A9}}
+      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
 
       DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
       DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
@@ -60,6 +64,31 @@ jobs:
 
       - name: check environment variables
         run: echo $DEMO_ACCOUNT_ID
+
+      - name: Get latest AMI ID
+        run: |
+          latest_ami_id=$(aws ec2 describe-images \
+            --owners self \
+            --filters "Name=name,Values=My_IMA-*" \
+            --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
+            --output text)
+          echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
+
+      - name: Create Launch Template
+        run: |
+          aws ec2 create-launch-template \
+          --launch-template-name my-new-launch-template \
+          --version-description "New version with latest AMI" \
+          --launch-template-data '{"ImageId":"'"$LATEST_AMI_ID"'"}'
+
+      - name: Trigger Instance Refresh
+        run: |
+          aws autoscaling start-instance-refresh \
+          --auto-scaling-group-name my-auto-scaling-group   
+
+
+
+
 
       - name: Run packer build
 
