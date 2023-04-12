@@ -75,13 +75,10 @@
             AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
           run: |
             latest_ami_id=$(aws ec2 describe-images \
-              --owners self \
-              --filters "Name=name,Values=My_IMA-*" \
+              --owners 160774145825 \
               --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
               --output text)
-            
             echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
-            echo "LATEST_AMI_ID=$latest_ami_id"
             
 
 
