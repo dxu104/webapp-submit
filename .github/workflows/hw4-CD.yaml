@@ -80,6 +80,10 @@
               --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
               --output text)
             echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
+            
+        - name: Print latest AMI ID
+          run: echo "LATEST_AMI_ID=$LATEST_AMI_ID"
+
 
         - name: Create Launch Template
           env:
