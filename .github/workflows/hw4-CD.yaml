@@ -1,97 +1,107 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+  # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+  # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-
-
-name: HW-4 CD
-on:
-  pull_request:
-    branches:
-      - main
-    types: [closed]
+  # This workflow uses actions that are not certified by GitHub.
+  # They are provided by a third-party and are governed by
+  # separate terms of service, privacy policy, and support
 
 
-jobs:
-  build-image:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+  name: HW-4 CD
+  on:
+    pull_request:
+      branches:
+        - main
+      types: [closed]
 
-#before those secrets.AWS_ACCESS_KEY_ID_DEMO and key is from packer user, only for creating AMI.
-# right now since A9,we need to create Launch Template and autoScaling refresh
-#      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO}}
-#      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
-#     
-      #since A9, I will increase the permission of role form those key ID to Demo IAM user
-    env:    
-      AWS_EC2_METADATA_DISABLED: true
-      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO}}
-      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
-      AWS_DEFAULT_REGION: "us-west-2"
 
-      DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
-      DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run:
-          mvn package
-
-      - name: Setup `packer`
-        uses: hashicorp/setup-packer@main
-        id: setup
-        with:
-
-          version: "1.8.3"  ##or `latest`
-      # validate templates
-      - name: Validate Template
-        uses: hashicorp/packer-github-actions@master
-        with:
-
-          command: validate
-          arguments: -syntax-only
-          target: ./packer/packer.pkr.hcl
+  jobs:
+    build-image:
+      if: github.event.pull_request.merged == true
+      runs-on: ubuntu-latest
 
 
 
+  #before those secrets.AWS_ACCESS_KEY_ID_DEMO and key is from packer user, only for creating AMI.
+  # right now since A9,we need to create Launch Template and autoScaling refresh
+  #      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO}}
+  #      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
+  #      region: ${{secrets.region}}
+        #since A9, I will increase the permission of role form those key ID to Demo IAM user
 
-      - name: check environment variables
-        run: echo $DEMO_ACCOUNT_ID
+      env:
+        AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO}}
+        AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
 
-      - name: Get latest AMI ID
-        run: |
-          latest_ami_id=$(aws ec2 describe-images \
-            --owners self \
-            --filters "Name=name,Values=My_IMA-*" \
-            --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
-            --output text)
-          echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
+        DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
+        DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
+      steps:
+        - uses: actions/checkout@v3
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+            cache: maven
+        - name: Build with Maven
+          run:
+            mvn package
 
-      - name: Create Launch Template
-        run: |
-          aws ec2 create-launch-template \
-          --launch-template-name my-new-launch-template \
-          --version-description "New version with latest AMI" \
-          --launch-template-data '{"ImageId":"'"$LATEST_AMI_ID"'"}'
+        - name: Setup `packer`
+          uses: hashicorp/setup-packer@main
+          id: setup
+          with:
 
-      - name: Trigger Instance Refresh
-        run: |
-          aws autoscaling start-instance-refresh \
-          --auto-scaling-group-name my-auto-scaling-group   
+            version: "1.8.3"  ##or `latest`
+        # validate templates
+        - name: Validate Template
+          uses: hashicorp/packer-github-actions@master
+          with:
+
+            command: validate
+            arguments: -syntax-only
+            target: ./packer/packer.pkr.hcl
 
 
 
 
+        - name: check environment variables
+          run: echo $DEMO_ACCOUNT_ID
 
-      - name: Run packer build
+        - name: Get latest AMI ID
+          env:
+            AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO_A9}}
+            AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
+          run: |
+            latest_ami_id=$(aws ec2 describe-images \
+              --owners self \
+              --filters "Name=name,Values=My_IMA-*" \
+              --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
+              --output text)
+            echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
 
-        run: cd packer && packer build packer.pkr.hcl
+        - name: Create Launch Template
+          env:
+            AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO_A9}}
+            AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
+          run: |
+            aws ec2 create-launch-template \
+            --launch-template-name my-new-launch-template \
+            --version-description "New version with latest AMI" \
+            --launch-template-data '{"ImageId":"'"$LATEST_AMI_ID"'"}'
+
+        - name: Trigger Instance Refresh
+          env:
+            AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO_A9}}
+            AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
+          run: |
+            aws autoscaling start-instance-refresh \
+            --auto-scaling-group-name my-auto-scaling-group   
+  
+  
+  
+  
+
+        - name: Run packer build
+
+          run: cd packer && packer build packer.pkr.hcl
 
