@@ -23,12 +23,13 @@ jobs:
 # right now since A9,we need to create Launch Template and autoScaling refresh
 #      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO}}
 #      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
-#      region: ${{secrets.region}}
+#     
       #since A9, I will increase the permission of role form those key ID to Demo IAM user
     env:    
       AWS_EC2_METADATA_DISABLED: true
       AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO_A9}}
       AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
+      AWS_DEFAULT_REGION: "us-west-2"
 
       DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
       DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
