@@ -67,6 +67,13 @@ jobs:
       - name: check environment variables
         run: echo $DEMO_ACCOUNT_ID
 
+      - name: Run packer build
+
+        run: cd packer && packer build packer.pkr.hcl
+
+
+
+
 
 
 
@@ -123,11 +130,6 @@ jobs:
           --auto-scaling-group-name $ASG_NAME
 
 
-      - name: Run packer build
-
-        run: cd packer && packer build packer.pkr.hcl
-
-
-
+     
 
      
