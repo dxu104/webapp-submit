@@ -69,6 +69,10 @@ jobs:
       - name: check environment variables
         run: echo $DEMO_ACCOUNT_ID
 
+      - name: Run packer build
+
+        run: cd packer && packer build packer.pkr.hcl
+
 
 
       - name: Configure AWS CLI
@@ -123,6 +127,4 @@ jobs:
 
 
 
-      - name: Run packer build
-
-        run: cd packer && packer build packer.pkr.hcl
+     
