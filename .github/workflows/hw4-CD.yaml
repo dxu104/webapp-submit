@@ -92,16 +92,19 @@
       
 
         - name: Create Launch Template Version
-          
+
           run: |
             LAUNCH_TEMPLATE_ID=$(aws ec2 describe-launch-templates --query "LaunchTemplates[?starts_with(LaunchTemplateName, 'asg_launch_template')].LaunchTemplateId" --output text --profile demo)
-          
-            aws ec2 create-launch-template-version \
-            --launch-template-name ${{ env.LAUNCH_TEMPLATE_NAME }} \
+            
+            aws --profile demo ec2 create-launch-template-version \
+            --launch-template-id ${LAUNCH_TEMPLATE_ID} \
+            --source-version 1 \
             --version-description "New version with latest AMI" \
             --launch-template-data '{"ImageId":"'"$LATEST_AMI_ID"'"}'
             echo "::set-output name=IMAGE_ID::${LATEST_AMI_ID}"
             echo "::set-output name=LAUNCH_TEMPLATE_ID::${LAUNCH_TEMPLATE_ID}"
+
+
 
 
         - name: Trigger Instance Refresh
