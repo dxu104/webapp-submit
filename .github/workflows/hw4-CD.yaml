@@ -97,8 +97,6 @@ jobs:
 
       - name: Create Launch Template Version
         id: create-launch-template
-
-
         run: |
           LAUNCH_TEMPLATE_ID=$(aws ec2 describe-launch-templates --query "LaunchTemplates[?starts_with(LaunchTemplateName, 'asg_launch_template')].LaunchTemplateId" --output text --profile demo)
           
@@ -107,27 +105,27 @@ jobs:
           --source-version '$Latest' \
           --version-description "New version with latest AMI" \
           --launch-template-data '{"ImageId":"'"$LATEST_AMI_ID"'"}'
+          echo "LAUNCH_TEMPLATE_ID=$LAUNCH_TEMPLATE_ID" >> $GITHUB_ENV
 
       - name: Get Auto Scaling Group name
-
         run: |
           ASG_NAME=$(aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[?starts_with(AutoScalingGroupName, 'web_asg')].AutoScalingGroupName" --output text --profile demo)
           echo "ASG_NAME=$ASG_NAME" >> $GITHUB_ENV
-
-
-
+  
 
       - name: Update Auto Scaling Group
         run: |
           aws --profile demo autoscaling update-auto-scaling-group \
           --auto-scaling-group-name $ASG_NAME  \
-          --launch-template LaunchTemplateId=${{ steps.create-launch-template.outputs.LAUNCH_TEMPLATE_ID }},Version='$Latest' \
-
+          --launch-template LaunchTemplateId=$LAUNCH_TEMPLATE_ID,Version='$Latest'
+    
+    
 
       - name: Refresh Auto Scaling Group Instances
         run: |
           aws --profile demo autoscaling start-instance-refresh \
           --auto-scaling-group-name $ASG_NAME
+
 
 
 
