@@ -75,7 +75,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
         run: |
           latest_ami_id=$(aws ec2 describe-images \
+
+             
+
             --owners 160774145825 187570859166 814613584038 \
+
             --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
             --output text)
           echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
@@ -100,11 +104,9 @@ jobs:
           
           aws --profile demo ec2 create-launch-template-version \
           --launch-template-id ${LAUNCH_TEMPLATE_ID} \
-          --source-version 1 \
+          --source-version '$Latest' \
           --version-description "New version with latest AMI" \
           --launch-template-data '{"ImageId":"'"$LATEST_AMI_ID"'"}'
-          echo "::set-output name=IMAGE_ID::${LATEST_AMI_ID}"
-          echo "::set-output name=LAUNCH_TEMPLATE_ID::${LAUNCH_TEMPLATE_ID}"
 
       - name: Get Auto Scaling Group name
 
