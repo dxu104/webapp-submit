@@ -13,10 +13,6 @@ public class SeverIsHealthyController {
     }
 
 
-     @GetMapping("/health")
-    public String health(){
-        return "Sever is Healthy";
-    }
 
 
 }
