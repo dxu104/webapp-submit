@@ -83,7 +83,7 @@ jobs:
           aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9 }} --profile demo
           aws configure set default.region ${{secrets.AWS_DEFAULT_REGION }} --profile demo
           aws configure set default.output json --profile demo
- #        --owners 160774145825 187570859166 814613584038  \
+
       - name: Get latest AMI ID
         env:
 
