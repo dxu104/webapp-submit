@@ -100,7 +100,7 @@ jobs:
           
           aws --profile demo ec2 create-launch-template-version \
           --launch-template-id ${LAUNCH_TEMPLATE_ID} \
-          --source-version '$Latest' \
+          --source-version 1 \
           --version-description "New version with latest AMI" \
           --launch-template-data '{"ImageId":"'"$LATEST_AMI_ID"'"}'
           echo "::set-output name=IMAGE_ID::${LATEST_AMI_ID}"
