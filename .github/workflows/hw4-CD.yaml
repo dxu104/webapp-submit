@@ -94,7 +94,7 @@
         - name: Create Launch Template Version
           
           run: |
-            LAUNCH_TEMPLATE_ID=$(ec2 describe-launch-templates --query "LaunchTemplates[?starts_with(LaunchTemplateName, 'asg_launch_template')].LaunchTemplateId" --output text --profile demo)
+            LAUNCH_TEMPLATE_ID=$(aws ec2 describe-launch-templates --query "LaunchTemplates[?starts_with(LaunchTemplateName, 'asg_launch_template')].LaunchTemplateId" --output text --profile demo)
           
             aws ec2 create-launch-template-version \
             --launch-template-name ${{ env.LAUNCH_TEMPLATE_NAME }} \
