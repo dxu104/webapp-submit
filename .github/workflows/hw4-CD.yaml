@@ -69,21 +69,7 @@ jobs:
       - name: check environment variables
         run: echo $DEMO_ACCOUNT_ID
 
-      - name: Get latest AMI ID
-        env:
-          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID_DEMO_A9}}
-          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9}}
-        run: |
-          latest_ami_id=$(aws ec2 describe-images \
 
-             
-
-            --owners 160774145825 187570859166 814613584038 \
-
-            --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
-            --output text)
-          echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
-          aws configure set default.output json 
 
       - name: Configure AWS CLI
         run: |
@@ -92,8 +78,14 @@ jobs:
           aws configure set default.region ${{secrets.AWS_DEFAULT_REGION }} --profile demo
           aws configure set default.output json --profile demo
 
-
-
+      - name: Get latest AMI ID
+        run: |
+          latest_ami_id=$(aws ec2 describe-images \
+             --owners 160774145825 187570859166 814613584038  \
+            --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
+            --output text --profile demo)
+          echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
+          aws configure set default.output json
 
       - name: Create Launch Template Version
         id: create-launch-template
