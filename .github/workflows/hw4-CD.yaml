@@ -82,12 +82,11 @@ jobs:
           aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO_A9 }} --profile demo
           aws configure set default.region ${{secrets.AWS_DEFAULT_REGION }} --profile demo
           aws configure set default.output json --profile demo
-
+ #        --owners 160774145825 187570859166 814613584038  \
       - name: Get latest AMI ID
         run: |
           latest_ami_id=$(aws ec2 describe-images \
             --owners  DEMO_ACCOUNT_ID DEV_ACCOUNT_ID ROOT_ACCOUNT_ID \
-     #        --owners 160774145825 187570859166 814613584038  \
             --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
             --output text --profile demo)
           echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
