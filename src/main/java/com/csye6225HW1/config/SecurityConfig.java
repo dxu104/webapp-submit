@@ -35,7 +35,7 @@ public class SecurityConfig {
     BCryptPasswordEncoder PwdEncoder;
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/v1/users/","/v1/users","/health","/healthz/");
+        return (web) -> web.ignoring().requestMatchers("/v1/users/","/v1/users","/health","/healthz");
     }
 
     @Bean
