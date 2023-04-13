@@ -34,9 +34,6 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_DEMO}}
       AWS_DEFAULT_REGION: ${{secrets.AWS_DEFAULT_REGION }}
 
-      DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
-      DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
-      ROOT_ACCOUNT_ID: ${{ secrets.ROOT_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -70,9 +67,6 @@ jobs:
       - name: check environment variables
         run: echo $DEMO_ACCOUNT_ID
 
-      - name: Run packer build
-
-        run: cd packer && packer build packer.pkr.hcl
 
 
 
@@ -84,9 +78,14 @@ jobs:
           aws configure set default.output json --profile demo
  #        --owners 160774145825 187570859166 814613584038  \
       - name: Get latest AMI ID
+        env:
+
+          DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
+          DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
+          ROOT_ACCOUNT_ID: ${{ secrets.ROOT_ACCOUNT_ID }}
         run: |
           latest_ami_id=$(aws ec2 describe-images \
-            --owners  DEMO_ACCOUNT_ID DEV_ACCOUNT_ID ROOT_ACCOUNT_ID \
+            --owners $DEMO_ACCOUNT_ID $DEV_ACCOUNT_ID $ROOT_ACCOUNT_ID \
             --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
             --output text --profile demo)
           echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
@@ -124,6 +123,9 @@ jobs:
           --auto-scaling-group-name $ASG_NAME
 
 
+      - name: Run packer build
+
+        run: cd packer && packer build packer.pkr.hcl
 
 
 
