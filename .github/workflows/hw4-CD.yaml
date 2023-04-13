@@ -100,7 +100,7 @@
             --launch-template-name ${{ env.LAUNCH_TEMPLATE_NAME }} \
             --version-description "New version with latest AMI" \
             --launch-template-data '{"ImageId":"'"$LATEST_AMI_ID"'"}'
-            echo "::set-output name=IMAGE_ID::${IMAGE_ID}"
+            echo "::set-output name=IMAGE_ID::${LATEST_AMI_ID}"
             echo "::set-output name=LAUNCH_TEMPLATE_ID::${LAUNCH_TEMPLATE_ID}"
 
 
