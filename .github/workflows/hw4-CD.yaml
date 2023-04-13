@@ -36,6 +36,7 @@ jobs:
 
       DEMO_ACCOUNT_ID: ${{ secrets.DEMO_ACCOUNT_ID }}
       DEV_ACCOUNT_ID: ${{ secrets.DEV_ACCOUNT_ID }}
+      ROOT_ACCOUNT_ID: ${{ secrets.ROOT_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -85,7 +86,8 @@ jobs:
       - name: Get latest AMI ID
         run: |
           latest_ami_id=$(aws ec2 describe-images \
-             --owners 160774145825 187570859166 814613584038  \
+            --owners  DEMO_ACCOUNT_ID DEV_ACCOUNT_ID ROOT_ACCOUNT_ID \
+     #        --owners 160774145825 187570859166 814613584038  \
             --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
             --output text --profile demo)
           echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
