@@ -67,7 +67,7 @@ jobs:
       - name: check environment variables
         run: echo $DEMO_ACCOUNT_ID
 
-    
+
 
 
       - name: Configure AWS CLI
@@ -85,7 +85,7 @@ jobs:
           ROOT_ACCOUNT_ID: ${{ secrets.ROOT_ACCOUNT_ID }}
         run: |
           latest_ami_id=$(aws ec2 describe-images \
-            --owners DEMO_ACCOUNT_ID DEV_ACCOUNT_ID ROOT_ACCOUNT_ID \
+            --owners $DEMO_ACCOUNT_ID $DEV_ACCOUNT_ID $ROOT_ACCOUNT_ID \
             --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
             --output text --profile demo)
           echo "LATEST_AMI_ID=$latest_ami_id" >> $GITHUB_ENV
