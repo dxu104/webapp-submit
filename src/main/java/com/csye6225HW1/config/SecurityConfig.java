@@ -36,7 +36,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
 
-        return (web) -> web.ignoring().requestMatchers("/v1/users/","/v1/users","/health","/healthz");
+        return (web) -> web.ignoring().requestMatchers("/v1/users/","/v2/users","/v1/users","/health","/healthz");
 
     }
 
